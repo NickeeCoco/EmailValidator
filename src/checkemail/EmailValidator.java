@@ -115,19 +115,16 @@ public class EmailValidator {
         // loop through remaining characters
         for(int i = 1; i < prefixToValidate.length() - 1; i++){
 
-            // initiate a variables to improve code readability
+            // initiate variables to improve code readability
             char currentCharacter = prefixToValidate.charAt(i);
             char nextCharacter = prefixToValidate.charAt(i + 1);
 
-            // if one of the characters is not an alphanumeric character or an underscore, a point or a dash, the prefix is invalid
-            if(!isAlphanumeric(currentCharacter)
-                    && currentCharacter != '_'
-                    && currentCharacter != '.'
-                    && currentCharacter != '-') {
+            // if current character is not an alphanumeric character or an underscore, a point or a dash, prefix is invalid
+            if(!isValidPrefixChar(currentCharacter)) {
                 return false;
             }
 
-            // if we have an underscore, a point or a dash, check if the next character is alphanumeric
+            // if current character is an underscore, a point or a dash and the next character is not alphanumeric, prefix is invalid
             if(currentCharacter == '_'
                     || currentCharacter == '.'
                     || currentCharacter == '-') {
@@ -141,11 +138,97 @@ public class EmailValidator {
         return true;
     }
 
+    /*
+        Checks if the domain is valid:
+            - made of two portions separated by a period
+            - first portion contains at least one character
+            - second portion contains at least two characters
+            - first portion contains only alphanumeric characters, periods and dashes
+            - in first portion, periods and dashes are always followed by alphanumeric character
+            - first and last character of fist section must be alphanumeric
+            - second portion contains only letters of the alphabet
+     */
     public static boolean isValidDomain(String domainToValidate) {
-        return false;
+        // initiate variable to improve code readability
+        int indexOfLastDot = domainToValidate.lastIndexOf(".");
+
+        // if domain is empty or does not contain a dot or the last character is a dot, domain is invalid
+        if(domainToValidate.length() < 1
+                || !domainToValidate.contains(".")
+                || indexOfLastDot == (domainToValidate.length() - 1)) {
+            return false;
+        }
+
+        // initiate variables to improve code readability
+        String firstPortion = domainToValidate.substring(0, indexOfLastDot);
+        String secondPortion = domainToValidate.substring(indexOfLastDot + 1);
+
+        // if first portion does not contain at least one character or second portion does not contain at least two characters, domain is invalid
+        if(!(firstPortion.length() > 0)
+                || !(secondPortion.length() >= 2))
+        {
+            return false;
+        }
+
+        // initiate variables to improve code readability
+        char firstFirstPortionCharacter = firstPortion.charAt(0);
+        char lastFirstPortionCharacter = firstPortion.charAt(firstPortion.length() - 1);
+
+        // if first and last character of first portion are not alphanumeric characters, domain is invalid
+        if(!isAlphanumeric(firstFirstPortionCharacter)
+                || !isAlphanumeric(lastFirstPortionCharacter)) {
+            return false;
+        }
+
+        // loop through remaining characters of first portion
+        for(int i = 1; i < firstPortion.length() - 1; i++){
+
+            // initiate variables to improve code readability
+            char currentCharacter = firstPortion.charAt(i);
+            char nextCharacter = firstPortion.charAt(i + 1);
+
+            // if current character is not alphanumeric, dot or dash, domain is invalid
+            if(!isValidDomainChar(currentCharacter)) {
+                return false;
+            }
+
+            // if current character is a point or a dash and the next character is not alphanumeric, domain is invalid
+            if(currentCharacter == '.'
+                    || currentCharacter == '-') {
+                if(!isAlphanumeric(nextCharacter)) {
+                    return false;
+                }
+            }
+        }
+
+        // loop through characters of second portion
+        for(int i = 0; i < secondPortion.length(); i++) {
+
+            // initiate variable to improve code readability
+            char currentCharacter = secondPortion.charAt(i);
+
+            // if current character is not a letter of the alphabet, domain is invalid
+            if(!(currentCharacter >= 'a' && currentCharacter <= 'z')) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
+    // checks if email address is valid
     public static boolean isValidEmail(String emailToValidate) {
-        return false;
+        if(!exactlyOneAt(emailToValidate)) {
+            return false;
+        };
+
+        String prefix = getPrefix(emailToValidate);
+        String domain = getDomain(emailToValidate);
+
+        if(!isValidPrefix(prefix) || !isValidDomain(domain)) {
+            return false;
+        }
+
+        return true;
     }
 }
