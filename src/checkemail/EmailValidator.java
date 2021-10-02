@@ -29,7 +29,14 @@ public class EmailValidator {
         return false;
     }
 
+    // check if a character is a valid domain character (alphanumeric, dash, period)
     public static boolean isValidDomainChar(char charToCheck) {
+        if(isAlphanumeric(charToCheck)
+                || charToCheck == '-'
+                || charToCheck == '.')
+        {
+            return true;
+        }
         return false;
     }
 
