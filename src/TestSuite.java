@@ -124,9 +124,9 @@ public class TestSuite {
         ArrayList<Boolean> checks = new ArrayList<Boolean>();
         checks.add(expectTrue(EmailValidator.isValidDomain("mail.cc")));
         checks.add(expectTrue(EmailValidator.isValidDomain("abc-def.ghi")));
-        checks.add(expectFalse(EmailValidator.isValidDomain("abc-def.ghi")));
+        checks.add(expectFalse(EmailValidator.isValidDomain("abc..d")));
         checks.add(expectFalse(EmailValidator.isValidDomain(".com")));
-        checks.add(expectFalse(EmailValidator.isValidDomain(".com")));
+        checks.add(expectFalse(EmailValidator.isValidDomain(".com.com")));
 
         checkTestValidation(checks, "Domain test validated!", "The validatePrefix test failed.");
     }
