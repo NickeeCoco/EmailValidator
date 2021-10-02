@@ -78,8 +78,15 @@ public class EmailValidator {
         return prefix;
     }
 
+    // gets the domain of the email address (all characters after the @ character)
     public static String getDomain(String emailAddress) {
-        return "domain";
+        // find index of @
+        int indexAtChar = emailAddress.indexOf('@');
+
+        // get all characters after the index of @ (adjust indexAtChar to exclude the @ character)
+        String domain = emailAddress.substring(indexAtChar + 1);
+
+        return domain;
     }
 
     public static boolean isValidPrefix(String prefixToValidate) {
