@@ -112,7 +112,7 @@ public class TestSuite {
 
     public static void validatePrefix(){
         ArrayList<Boolean> checks = new ArrayList<Boolean>();
-        checks.add(expectTrue(EmailValidator.isValidPrefix("abc def")));
+        checks.add(expectTrue(EmailValidator.isValidPrefix("abc_def")));
         checks.add(expectTrue(EmailValidator.isValidPrefix("mail.cc")));
         checks.add(expectFalse(EmailValidator.isValidPrefix("abc..d")));
         checks.add(expectFalse(EmailValidator.isValidPrefix("abc#d")));
@@ -128,7 +128,7 @@ public class TestSuite {
         checks.add(expectFalse(EmailValidator.isValidDomain(".com")));
         checks.add(expectFalse(EmailValidator.isValidDomain(".com")));
 
-        checkTestValidation(checks, "Prefix test validated!", "The validatePrefix test failed.");
+        checkTestValidation(checks, "Domain test validated!", "The validatePrefix test failed.");
     }
 
     public static void validateFullEmail(){
