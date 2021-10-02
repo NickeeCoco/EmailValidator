@@ -40,8 +40,31 @@ public class EmailValidator {
         return false;
     }
 
+    // check if a string contains exactly one @ character
     public static boolean exactlyOneAt(String emailAddress) {
-        return false;
+        // initiate variable to store number of @s
+        int numberOfAts = 0;
+
+
+        // loop through all email address characters
+        for(int i = 0; i < emailAddress.length(); i++) {
+            // if character is @, increment numberOfAts
+            if (emailAddress.charAt(i) == '@') {
+                numberOfAts++;
+            }
+
+            // if numberOfAts more than 1, the email address contains more than one @ character: return false
+            if (numberOfAts > 1) {
+                return false;
+            }
+        }
+
+        // check final value of numberOfAts: if 1, valid number of @s
+        if(numberOfAts == 1) {
+            return true;
+        }
+
+        return false; // if the program gets here, it means numberOfAts is 0, so the email address is invalid
     }
 
     public static String getPrefix(String emailAddress) {
