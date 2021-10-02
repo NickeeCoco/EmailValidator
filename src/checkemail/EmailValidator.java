@@ -89,8 +89,56 @@ public class EmailValidator {
         return domain;
     }
 
+    /*
+        Checks if the prefix is valid:
+            - contains at least one character
+            - contains only alphanumeric characters, underscores, periods and dashes
+            - underscores, periods and dashes are always followed by an alphanumeric character
+            - first and last characters are alphanumeric characters
+     */
     public static boolean isValidPrefix(String prefixToValidate) {
-        return false;
+        // if prefix is empty, prefix is invalid
+        if(prefixToValidate.length() < 1) {
+            return false;
+        }
+
+        // initiate variables for code readability
+        char firstCharacter = prefixToValidate.charAt(0);
+        char lastCharacter = prefixToValidate.charAt(prefixToValidate.length() - 1);
+
+        // if first or last character are not alphanumeric characters, prefix is invalid
+        if(!isAlphanumeric(firstCharacter)
+                || !isAlphanumeric(lastCharacter)) {
+            return false;
+        }
+
+        // loop through remaining characters
+        for(int i = 1; i < prefixToValidate.length() - 1; i++){
+
+            // initiate a variables to improve code readability
+            char currentCharacter = prefixToValidate.charAt(i);
+            char nextCharacter = prefixToValidate.charAt(i + 1);
+
+            // if one of the characters is not an alphanumeric character or an underscore, a point or a dash, the prefix is invalid
+            if(!isAlphanumeric(currentCharacter)
+                    && currentCharacter != '_'
+                    && currentCharacter != '.'
+                    && currentCharacter != '-') {
+                return false;
+            }
+
+            // if we have an underscore, a point or a dash, check if the next character is alphanumeric
+            if(currentCharacter == '_'
+                    || currentCharacter == '.'
+                    || currentCharacter == '-') {
+                if(!isAlphanumeric(nextCharacter)) {
+                    return false;
+                }
+            }
+        }
+
+        // if all previous tests passed, the prefix is valid
+        return true;
     }
 
     public static boolean isValidDomain(String domainToValidate) {
