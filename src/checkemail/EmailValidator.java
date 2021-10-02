@@ -17,7 +17,15 @@ public class EmailValidator {
         // return Character.isLetterOrDigit(charToCheck);
     }
 
+    // check if a character is a valid prefix character (alphanumeric, dash, period, underscore)
     public static boolean isValidPrefixChar(char charToCheck) {
+        if(isAlphanumeric(charToCheck)
+                || charToCheck == '-'
+                || charToCheck == '.'
+                || charToCheck == '_')
+        {
+            return true;
+        }
         return false;
     }
 
