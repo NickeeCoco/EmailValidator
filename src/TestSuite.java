@@ -26,7 +26,7 @@ public class TestSuite {
     }
 
     public static boolean expectEqual(String givenValue, String expectedValue){
-        if( givenValue == expectedValue)
+        if( givenValue.equals(expectedValue))
         {
             return true;
         }
@@ -97,6 +97,8 @@ public class TestSuite {
         checks.add(expectEqual(EmailValidator.getPrefix("example@email.com"), "example"));
         checks.add(expectEqual(EmailValidator.getPrefix("cats @nd dogs"), "cats "));
         checks.add(expectEqual(EmailValidator.getPrefix("@pple"), ""));
+
+        checkTestValidation(checks, "The getPrefix test is validated!", "The getPrefix test failed.");
     }
 
     public static void validateGetDomain(){
@@ -104,6 +106,8 @@ public class TestSuite {
         checks.add(expectEqual(EmailValidator.getDomain("example@email.com"), "email.com"));
         checks.add(expectEqual(EmailValidator.getDomain("cats @nd dogs"), "nd dogs"));
         checks.add(expectEqual(EmailValidator.getDomain("@pple"), "pple"));
+
+        checkTestValidation(checks, "The getDomain test is validated!", "The getDomain test failed.");
     }
 
     public static void validatePrefix(){

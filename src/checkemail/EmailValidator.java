@@ -67,8 +67,15 @@ public class EmailValidator {
         return false; // if the program gets here, it means numberOfAts is 0, so the email address is invalid
     }
 
+    // gets the prefix of the email address (all characters before the @ character)
     public static String getPrefix(String emailAddress) {
-        return "prefix";
+        // find index of @
+        int indexAtChar = emailAddress.indexOf('@');
+
+        // get all characters before the index of @
+        String prefix = indexAtChar > 0 ? emailAddress.substring(0, indexAtChar) : "";
+
+        return prefix;
     }
 
     public static String getDomain(String emailAddress) {
