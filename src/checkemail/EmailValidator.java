@@ -5,8 +5,16 @@ public class EmailValidator {
         System.out.println("toto");
     }
 
+    // check if a character is a valid letter of the English alphabet or one of the arabic numerals
     public static boolean isAlphanumeric(char charToCheck) {
+        if((charToCheck >= 'A' && charToCheck <= 'Z')
+                || (charToCheck >= 'a' && charToCheck <= 'z')
+                || (charToCheck >= '0' && charToCheck <= '9'))
+        {
+            return  true;
+        }
         return false;
+        // return Character.isLetterOrDigit(charToCheck);
     }
 
     public static boolean isValidPrefixChar(char charToCheck) {
