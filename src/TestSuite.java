@@ -137,7 +137,7 @@ public class TestSuite {
         checks.add(expectFalse(EmailValidator.isValidEmail("abc#def@mail.com")));
         checks.add(expectFalse(EmailValidator.isValidEmail("abc.def@mail")));
         checks.add(expectFalse(EmailValidator.isValidEmail("abc.def@mail..com")));
-        checks.add(expectTrue(EmailValidator.isValidEmail("abc d@mail.com")));
+        checks.add(expectTrue(EmailValidator.isValidEmail("abc_d@mail.com")));
         checks.add(expectTrue(EmailValidator.isValidEmail("abc.def@mail.com")));
         checks.add(expectTrue(EmailValidator.isValidEmail("abc@mail.com")));
         checks.add(expectTrue(EmailValidator.isValidEmail("abc.def@mail-archive.com")));
